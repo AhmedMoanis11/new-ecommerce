@@ -65,7 +65,7 @@ class repo {
 
   Future<Products> GetProductDetails({required int idd}) async {
     var response = await Dioinfo.GetData(urll: 'products/$idd');
-    return Products.fromJson(response.data);
+    return Products.fromJson(response.data["data"]);
   }
 
   Future<UserRegister> GetProfileData() async {

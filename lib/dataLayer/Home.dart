@@ -2,40 +2,29 @@ class Home {
   bool? status;
   Data? data;
 
-  Home({this.status,  this.data});
+  Home({this.status, this.data});
 
   Home.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    data = json['data'] != null ?  Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
-
-  
 }
 
 class Data {
-  
-  List<Products> products=[];
-
+  List<Products> products = [];
 
   Data.fromJson(Map<String, dynamic> json) {
-     
-       json['products'].forEach((element) {
-        products.add(Products.fromJson(element));
-      });
-    
-    
+    json['products'].forEach((element) {
+      products.add(Products.fromJson(element));
+    });
   }
-
- 
 }
 
-
-
 class Products {
-   int? id;
-   dynamic  price;
+  int? id;
+  dynamic price;
   dynamic old_price;
-  dynamic  discount;
+  dynamic discount;
   String? image;
   String? name;
   bool? in_favorites;
@@ -45,16 +34,10 @@ class Products {
   bool? inFavorites;
   bool? inCart;
 
-
-
- 
-  
-
   Products(
       {this.id,
       this.price,
       this.old_price,
-    
       this.discount,
       this.image,
       this.name,
@@ -66,7 +49,7 @@ class Products {
   Products.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     price = json['price'];
-    old_price=json['old_price'];
+    old_price = json['old_price'];
     discount = json['discount'];
     image = json['image'];
     name = json['name'];
@@ -75,6 +58,4 @@ class Products {
     inFavorites = json['in_favorites'];
     inCart = json['in_cart'];
   }
-
-  
 }

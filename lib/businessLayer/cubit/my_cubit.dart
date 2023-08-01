@@ -78,9 +78,9 @@ class MyCubit extends Cubit<MyState> {
   }
 
   List<Widget> Screen = [
-    ProductSc(),
-    FavSc(),
-    SettingSc(),
+    const ProductSc(),
+    const FavSc(),
+    const SettingSc(),
   ];
 
   void GetHomeData() {
@@ -102,7 +102,7 @@ class MyCubit extends Cubit<MyState> {
     emit(LoadingProfileData());
     myrepo.GetProfileData().then((value) {
       print('>>>>>>>>>>>>>>');
-     
+
       emit(SuccessProfileData(value));
     }).catchError((e) {
       print(e.toString());

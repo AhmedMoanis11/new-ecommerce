@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:ecommerce_newapi/businessLayer/cubit/my_cubit.dart';
 import 'package:ecommerce_newapi/businessLayer/repo.dart';
 import 'package:ecommerce_newapi/dataLayer/constance.dart';
@@ -16,7 +17,7 @@ class LoginSc extends StatelessWidget {
   var passcontrollerLogin = TextEditingController();
 
   var emailcontrollerLogin = TextEditingController();
-   UserRegister? user;
+  UserRegister? user;
   LoginSc({super.key});
 
   @override
@@ -25,53 +26,32 @@ class LoginSc extends StatelessWidget {
       create: (context) => MyCubit(repo(Object)),
       child: BlocConsumer<MyCubit, MyState>(
         listener: (context, state) {
-        if (state is SuccessLoginState )
-        {
-          if(state.UserCreateState.status)
-          {
-             Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeSc()));
-         Fluttertoast.showToast(
-                msg: state.UserCreateState.message,
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 5,
-                backgroundColor: Color.fromARGB(255, 1, 4, 85),
-                textColor: Colors.white,
-                fontSize: 16.0
-            );
-            tokens=state.UserCreateState.data!.token;
-            print('tokennnnnnn');
-            print(tokens);
-
-
+          if (state is SuccessLoginState) {
+            if (state.UserCreateState.status) {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomeSc()));
+              Fluttertoast.showToast(
+                  msg: state.UserCreateState.message,
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 5,
+                  backgroundColor: const Color.fromARGB(255, 1, 4, 85),
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+              tokens = state.UserCreateState.data!.token;
+              log('tokennnnnnn');
+              log(tokens.toString());
+            } else {
+              Fluttertoast.showToast(
+                  msg: state.UserCreateState.message,
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 5,
+                  backgroundColor: const Color.fromARGB(255, 131, 11, 2),
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            }
           }
-          else
-          {
-             Fluttertoast.showToast(
-                msg: state.UserCreateState.message,
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 5,
-                backgroundColor:const Color.fromARGB(255, 131, 11, 2),
-                textColor: Colors.white,
-                fontSize: 16.0
-            );
-
-
-
-
-          }
-          
-         
-
-
-
-
-        }
-       
-
-
-
         },
         builder: (context, state) {
           return Scaffold(
@@ -80,7 +60,7 @@ class LoginSc extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 150.0,
                     ),
                     Row(
@@ -93,17 +73,17 @@ class LoginSc extends StatelessWidget {
                           alignment: Alignment.topLeft,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(30.0),
-                            child: Image(
+                            child: const Image(
                               image: AssetImage(
                                 'assets/images/logo.jpg',
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10.0,
                         ),
-                        Text(
+                        const Text(
                           'e',
                           style: TextStyle(
                             color: Color.fromARGB(255, 246, 78, 12),
@@ -111,7 +91,7 @@ class LoginSc extends StatelessWidget {
                             fontStyle: FontStyle.italic,
                           ),
                         ),
-                        Text(
+                        const Text(
                           'shop',
                           style: TextStyle(
                               color: Colors.black,
@@ -120,10 +100,10 @@ class LoginSc extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 70.0,
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         SizedBox(
@@ -155,8 +135,8 @@ class LoginSc extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
+                    const Padding(
+                      padding: EdgeInsets.all(15.0),
                       child: Text(
                         'Please enter your address bleow to start using app ',
                         style: TextStyle(
@@ -165,15 +145,19 @@ class LoginSc extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15.0,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadiusDirectional.circular(8.0),
+                          color: Colors.grey.shade300,
+                        ),
                         child: TextFormField(
                           controller: emailcontrollerLogin,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: 'Email ',
                             border: InputBorder.none,
                             prefixIcon: Icon(
@@ -184,20 +168,21 @@ class LoginSc extends StatelessWidget {
                             if (value!.isEmpty) {
                               return "Please enter email";
                             }
+                            return null;
                           },
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadiusDirectional.circular(8.0),
-                          color: Colors.grey.shade300,
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5.0,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadiusDirectional.circular(8.0),
+                          color: Colors.grey.shade300,
+                        ),
                         child: TextFormField(
                           controller: passcontrollerLogin,
                           decoration: const InputDecoration(
@@ -211,15 +196,12 @@ class LoginSc extends StatelessWidget {
                             if (value!.isEmpty) {
                               return "Please enter password";
                             }
+                            return null;
                           },
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadiusDirectional.circular(8.0),
-                          color: Colors.grey.shade300,
                         ),
                       ),
                     ),
-                    Row(
+                    const Row(
                       children: [
                         SizedBox(
                           width: 10.0,
@@ -237,7 +219,7 @@ class LoginSc extends StatelessWidget {
                         ),
                         Spacer(),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0),
                           child: Text(
                             'Forget password',
                             style: TextStyle(
@@ -251,6 +233,10 @@ class LoginSc extends StatelessWidget {
                       width: 360,
                       child: Container(
                         width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadiusDirectional.circular(10.0),
+                          color: const Color.fromARGB(255, 246, 78, 12),
+                        ),
                         child: TextButton(
                           onPressed: () {
                             if (keyform.currentState!.validate()) {
@@ -259,7 +245,7 @@ class LoginSc extends StatelessWidget {
                                   password: passcontrollerLogin.text);
                             }
                           },
-                          child: Text(
+                          child: const Text(
                             'Sign in',
                             style: TextStyle(
                               color: Colors.white,
@@ -267,21 +253,17 @@ class LoginSc extends StatelessWidget {
                             ),
                           ),
                         ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadiusDirectional.circular(10.0),
-                          color: Color.fromARGB(255, 246, 78, 12),
-                        ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20.0,
                     ),
                     Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 100.0,
                         ),
-                        Text(
+                        const Text(
                           'Not a member?',
                           style: TextStyle(color: Colors.black, fontSize: 15.0),
                         ),
@@ -292,7 +274,7 @@ class LoginSc extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => RegisterSc()));
                           },
-                          child: Text(
+                          child: const Text(
                             'Join now',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 244, 121, 27),

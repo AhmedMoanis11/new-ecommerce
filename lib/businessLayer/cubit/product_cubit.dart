@@ -1,4 +1,5 @@
-import 'package:bloc/bloc.dart';
+import 'dart:developer';
+
 import 'package:ecommerce_newapi/businessLayer/repo.dart';
 import 'package:ecommerce_newapi/dataLayer/Home.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,24 +11,17 @@ class ProductCubit extends Cubit<MyProduct> {
   ProductCubit(this.myrepo) : super(MyInitial());
   static ProductCubit get(context) => BlocProvider.of(context);
   final repo myrepo;
-    Products? prodctmodel;
+  Products? prodctmodel;
 
-
-  
-
-  void ProductDataDetails(
-    {
-      required int id
-    }
-  ) {
+  void ProductDataDetails({required int id}) {
     emit(LoadingProductDetails());
-    myrepo.GetProductDetails(idd:id ).then((value) {
-      print(value.id);
+    myrepo.GetProductDetails(idd: id).then((value) {
+      log(value.id.toString());
+      prodctmodel = value;
       emit(SucessProductDetails(value));
     }).catchError((e) {
-      print(e.toString());
+      log(e.toString());
       emit(ErrorProductDetails(e));
     });
   }
 }
- 

@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:ecommerce_newapi/businessLayer/cubit/my_cubit.dart';
@@ -10,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductSc extends StatelessWidget {
-   ProductSc({super.key});
+  const ProductSc({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,46 +23,42 @@ class ProductSc extends StatelessWidget {
 
     final List<Widget> imageSliders = imag
         .map((item) => Container(
-              child: Container(
-                margin: EdgeInsets.all(5.0),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    child: Stack(
-                      children: <Widget>[
-                        Image.asset(
-                          item,
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                        ),
-                        Positioned(
-                          bottom: 0.0,
-                          left: 0.0,
-                          right: 0.0,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromARGB(200, 0, 0, 0),
-                                  Color.fromARGB(0, 0, 0, 0)
-                                ],
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.topCenter,
-                              ),
+              margin: const EdgeInsets.all(5.0),
+              child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  child: Stack(
+                    children: <Widget>[
+                      Image.asset(
+                        item,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
+                      Positioned(
+                        bottom: 0.0,
+                        left: 0.0,
+                        right: 0.0,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Color.fromARGB(200, 0, 0, 0),
+                                Color.fromARGB(0, 0, 0, 0)
+                              ],
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter,
                             ),
                           ),
                         ),
-                      ],
-                    )),
-              ),
+                      ),
+                    ],
+                  )),
             ))
         .toList();
     return BlocProvider(
       create: (context) => MyCubit(repo(Object))..GetHomeData(),
       child: BlocConsumer<MyCubit, MyState>(
         listener: (context, state) {
-          if (state is SuccessHomeState) {
-            
-          }
+          if (state is SuccessHomeState) {}
         },
         builder: (context, state) {
           return Scaffold(
@@ -89,6 +84,10 @@ class ProductSc extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadiusDirectional.circular(8.0),
+                          color: Colors.grey.shade100,
+                        ),
                         child: TextFormField(
                           controller: TextEditingController(),
                           decoration: const InputDecoration(
@@ -102,15 +101,12 @@ class ProductSc extends StatelessWidget {
                             if (value!.isEmpty) {
                               return "Please enter email";
                             }
+                            return null;
                           },
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadiusDirectional.circular(8.0),
-                          color: Colors.grey.shade100,
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                     CarouselSlider(
@@ -121,15 +117,16 @@ class ProductSc extends StatelessWidget {
                           enableInfiniteScroll: true,
                           reverse: false,
                           autoPlay: true,
-                          autoPlayAnimationDuration: Duration(seconds: 2),
-                          autoPlayInterval: Duration(seconds: 3),
+                          autoPlayAnimationDuration: const Duration(seconds: 2),
+                          autoPlayInterval: const Duration(seconds: 3),
                           scrollDirection: Axis.horizontal,
                         )),
                     ConditionalBuilder(
                       condition: MyCubit.get(context).homemodel != null,
                       builder: (context) => buildGridProduct(
-                          MyCubit.get(context).homemodel!.data!,context),
-                      fallback: (context) => Center(child: CircularProgressIndicator()),
+                          MyCubit.get(context).homemodel!.data!, context),
+                      fallback: (context) =>
+                          const Center(child: CircularProgressIndicator()),
                     ),
                   ]),
             ),
@@ -139,21 +136,29 @@ class ProductSc extends StatelessWidget {
     );
   }
 
-  Widget BuildProduct(Products modell,context) {
+  Widget BuildProduct(Products modell, context) {
     return SingleChildScrollView(
       child: InkWell(
-        onTap: ()
-        {
-        
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductDetails(id: modell.id!)));
-         
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ProductDetails(id: modell.id!)));
         },
         child: Container(
-          
           height: 250,
-          
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [
+                Colors.white,
+                Color.fromARGB(255, 227, 227, 227),
+              ],
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadiusDirectional.circular(20.0),
+          ),
           child: Column(children: [
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             ClipRRect(
@@ -161,18 +166,17 @@ class ProductSc extends StatelessWidget {
               child: Image(
                 width: 150.0,
                 height: 150.0,
-                
                 image: NetworkImage('${modell.image}'),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5.0,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
               child: Text(
                 '${modell.description}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.w700,
                   color: Color.fromARGB(255, 89, 88, 88),
@@ -181,23 +185,23 @@ class ProductSc extends StatelessWidget {
                 maxLines: 2,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             Row(
               children: [
                 Text(
                   '${modell.price}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color.fromARGB(255, 255, 237, 75),
                     fontSize: 15.0,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 3,
                 ),
-                Text(
+                const Text(
                   '\$',
                   style: TextStyle(
                     color: Color.fromARGB(255, 255, 237, 75),
@@ -208,25 +212,12 @@ class ProductSc extends StatelessWidget {
               ],
             ),
           ]),
-      
-        decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            Colors.white,
-           Color.fromARGB(255, 227, 227, 227),
-          ],
-          end: Alignment.bottomRight,
-          
-          ),
-           
-        borderRadius: BorderRadiusDirectional.circular(20.0),
-        ),
         ),
       ),
-      
     );
   }
 
-  Widget buildGridProduct(Data datamodel,context) {
+  Widget buildGridProduct(Data datamodel, context) {
     return Column(
       children: [
         Container(
@@ -234,15 +225,14 @@ class ProductSc extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: GridView.count(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
               mainAxisSpacing: 0.0,
               crossAxisSpacing: 30.0,
               childAspectRatio: 1 / 1.5,
-              
               children: List.generate(
                 datamodel.products.length,
-                (index) => BuildProduct(datamodel.products[index],context),
+                (index) => BuildProduct(datamodel.products[index], context),
               ),
             ),
           ),
